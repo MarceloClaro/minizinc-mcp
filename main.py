@@ -7,6 +7,11 @@ import minizinc
 from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel
 
+from notebook_factory import (
+    ColabNotebookArtifact,
+    ColabNotebookRequest,
+    build_qcaf_notebook,
+)
 from qcaf import (
     QCAFResult,
     QuantumAdmissibilityRequest,
@@ -269,13 +274,33 @@ def create_server():
 
         return await quantum_admissibility_core(request)
 
+    @mcp.tool()
+    async def generate_qcaf_colab_notebook(
+        request: ColabNotebookRequest,
+    ) -> ColabNotebookArtifact:
+        """Generate a portable Google Colab notebook for a QCAF experiment."""
+
+        return build_qcaf_notebook(request)
+
     setattr(mcp, "solve_constraint", solve_constraint_core)
     setattr(mcp, "quantum_admissibility", quantum_admissibility_core)
+    setattr(mcp, "generate_qcaf_colab_notebook", build_qcaf_notebook)
 
     return mcp
 
 
 app = create_server()
 
-if __name__ == "__main__":
+
+def run_stdio():
+    """Run as a local stdio MCP server."""
+    app.run(transport="stdio")
+
+
+def run_sse():
+    """Run as an SSE MCP server for remote/container deployments."""
     app.run(transport="sse")
+
+
+if __name__ == "__main__":
+    run_sse()
