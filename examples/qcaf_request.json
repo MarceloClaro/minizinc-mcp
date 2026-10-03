@@ -1,0 +1,44 @@
+{
+  "observations": [
+    {
+      "label": "pennylane-run-001",
+      "framework": "pennylane",
+      "backend": "default.mixed",
+      "target_probability": 0.94,
+      "ber": 0.03,
+      "noise_probability": 0.04,
+      "circuit_depth": 12,
+      "shots": 8192,
+      "fidelity": 0.97,
+      "seed": 42,
+      "parameters": {
+        "theta": [0.3, 0.7]
+      },
+      "metadata": {
+        "purpose": "QCAF reproducibility example"
+      }
+    },
+    {
+      "label": "qiskit-run-002",
+      "framework": "qiskit",
+      "backend": "aer_simulator",
+      "target_probability": 0.88,
+      "ber": 0.06,
+      "noise_probability": 0.08,
+      "circuit_depth": 18,
+      "shots": 8192,
+      "seed": 42
+    }
+  ],
+  "constraints": {
+    "min_target_probability": 0.9,
+    "max_ber": 0.05,
+    "max_noise_probability": 0.1,
+    "max_circuit_depth": 20,
+    "min_shots": 8192,
+    "min_fidelity": 0.95
+  },
+  "objective": "maximize_target_probability",
+  "solver": "gecode",
+  "timeout": 10
+}
