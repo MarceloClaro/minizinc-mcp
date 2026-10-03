@@ -155,3 +155,10 @@ Important: `INADMISSIBLE` applies only to the finite supplied observation set; i
 ### Colab workflow
 
 Generate a notebook with the MCP tool `generate_qcaf_colab_notebook`, then either materialize it through the companion `MarceloClaro/colab-mcp` bridge or generate/execute it with `MarceloClaro/google-colab-cli`.
+
+
+### Open the reference notebook in Colab
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MarceloClaro/minizinc-mcp/blob/main/examples/QCAF_Quantum_Admissibility_Experiment.ipynb)
+
+The reference notebook installs MiniZinc and the QCAF package, loads a bounded PennyLane/Qiskit observation set, solves the admissibility problem, and prints the scientific interpretation boundary.
