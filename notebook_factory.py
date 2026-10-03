@@ -74,6 +74,7 @@ def _install_cell(request: ColabNotebookRequest) -> str:
 def build_qcaf_notebook(request: ColabNotebookRequest) -> ColabNotebookArtifact:
     payload = request_as_dict(request.qcaf_request)
     payload_json = json.dumps(payload, indent=2, ensure_ascii=False)
+    payload_literal = repr(payload_json)
 
     cells = [
         _markdown(
@@ -106,7 +107,7 @@ from qcaf import QuantumAdmissibilityRequest
             ),
             _code(
                 f"""# @title Reproducible QCAF request
-request_payload = json.loads(r'''{payload_json}''')
+request_payload = json.loads({payload_literal})
 qcaf_request = QuantumAdmissibilityRequest(**request_payload)
 pprint(request_payload)
 """
@@ -157,7 +158,7 @@ print("Interpretation boundary:")
 print(result.interpretation_boundary)
 
 if result.selected_observation is not None:
-    print("\nSelected witness:")
+    print("\\nSelected witness:")
     selected = (
         result.selected_observation.model_dump()
         if hasattr(result.selected_observation, "model_dump")
